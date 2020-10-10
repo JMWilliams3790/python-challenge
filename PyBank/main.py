@@ -22,6 +22,8 @@ with open(csvpath) as csvfile:
     first_time = True
     greatest_increase = 0
     greatest_decrease = 999999999
+    greatest_month_inc = ""
+    greatest_month_dec = ""
 
 
     
@@ -38,9 +40,13 @@ with open(csvpath) as csvfile:
             #if current change is greater than previous change then greater change = current
             if change > greatest_increase:
                 greatest_increase = change
+                greatest_month_inc = row[0]
+
+
 
             if change < greatest_decrease:
                 greatest_decrease = change
+                greatest_month_dec = row[0]
 
         previous = int(row[1])
         first_time = False
@@ -52,5 +58,18 @@ print("----------------------------")
 print(f"Total months: {month_count}")
 print(f"Total: {total_value}")
 print(f"Total Change: {total_change/(month_count-1)}")
-print(greatest_increase)
-print(greatest_decrease)
+print(f"Greatest Increase in Profits: {greatest_month_inc} {greatest_increase}")
+print(f"Greatest Decrease in Profits: {greatest_month_dec} {greatest_decrease}")
+
+
+output_path = os.path.join("analysis", "results.txt")
+
+f = open(output_path, 'w')
+
+f.write("Financial Analysis\n")
+f.write("----------------------------\n")
+f.write(f"Total months: {month_count}\n")
+f.write(f"Total: {total_value}\n")
+f.write(f"Total Change: {total_change/(month_count-1)}\n")
+f.write(f"Greatest Increase in Profits: {greatest_month_inc} {greatest_increase}\n")
+f.write(f"Greatest Decrease in Profits: {greatest_month_dec} {greatest_decrease}\n")
