@@ -10,7 +10,7 @@ candidates = {}
 with open(electiondatapath) as csvfile:
     ElectionData = csv.reader(csvfile, delimiter=',')
     csv_header = next(ElectionData)
-    print(csv_header)
+
     for row in ElectionData:
         votes = votes + 1
         if row[2] not in candidates:
@@ -18,10 +18,29 @@ with open(electiondatapath) as csvfile:
 
         else:
             candidates[row[2]] += 1
+    name = ""
+    win_count = 0        
     for candidate in candidates:
         cand_per = (candidates[candidate]/votes)*100
-        print(cand_per)
 
+        #If statement candidate with most votes wins. Store greatest votes
+        
+        if candidates[candidate] > win_count:
+            win_count = candidates[candidate]
+            name = candidate
 
-print(candidates)
-print(votes)
+print("Election Results")
+print("-------------------------")
+print(f"Total Votes: {votes}")
+print("-------------------------")
+winner_votes = 0
+winner_candidate = ""
+for candidate in candidates:
+    print(f"{candidate}: {(candidates[candidate]/votes)*100:.3f}% ({candidates[candidate]})")
+    if candidates[candidate] > winner_votes:
+        winner_votes = candidates[candidate]
+        winner_candidate = candidate
+print("-------------------------")
+print(f"Winner:{name}")
+print("-------------------------")
+
