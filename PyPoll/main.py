@@ -36,7 +36,7 @@ print("-------------------------")
 winner_votes = 0
 winner_candidate = ""
 for candidate in candidates:
-    print(f"{candidate}: {(candidates[candidate]/votes)*100:.3f}% ({candidates[candidate]})")
+    print(f"{candidate}: {(candidates[candidate]/votes)*100:.2f}% ({candidates[candidate]})")
     if candidates[candidate] > winner_votes:
         winner_votes = candidates[candidate]
         winner_candidate = candidate
@@ -44,3 +44,22 @@ print("-------------------------")
 print(f"Winner:{name}")
 print("-------------------------")
 
+#Export
+output_path = os.path.join("analysis", "results.txt")
+
+f = open(output_path, 'w')
+
+f.write("Election Results\n")
+f.write("-------------------------\n")
+f.write(f"Total Votes: {votes}\n")
+f.write("-------------------------\n")
+winner_votes = 0
+winner_candidate = ""
+for candidate in candidates:
+    f.write(f"{candidate}: {(candidates[candidate]/votes)*100:.2f}% ({candidates[candidate]})\n")
+    if candidates[candidate] > winner_votes:
+        winner_votes = candidates[candidate]
+        winner_candidate = candidate
+f.write("-------------------------\n")
+f.write(f"Winner:{name}\n")
+f.write("-------------------------\n")
